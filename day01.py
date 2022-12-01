@@ -11,3 +11,4 @@ with open("input01.txt") as file:
     calorie_list.append(current)
 
 print(max(map(sum,calorie_list)))
+print(sum(sorted(list(map(sum,calorie_list)))[-3:]))
