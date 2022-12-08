@@ -31,3 +31,25 @@ visible[:, 0] = True
 visible[:, -1] = True
 
 print(visible.sum())
+
+def ss(arr):
+    count = np.zeros_like(arr)
+    for i in range(arr.size):
+        for j in range(i,0,-1):
+            if arr[j-1] <= arr[i]:
+                count[i] +=1
+            else:
+                break
+    count[1:] = np.where(count[1:] == 0,1,count[1:])
+    return count
+
+for h in heights:
+    print(ss(h),ss(h[::-1])[::-1])
+score = np.ones_like(heights)
+for i in range(heights.shape[0]):
+    score[i] *= ss(heights[i])
+    score[i][::-1] *= ss(heights[i][::-1])
+for h in range(heights.shape[1]):
+    score[:,i] *= ss(heights[:,i])
+    score[:,i][::-1] *= ss(heights[:,i][::-1])
+print(score)
