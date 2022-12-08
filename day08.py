@@ -1,6 +1,6 @@
 import numpy as np
 
-data = open("input08.test").readlines()
+data = open("input08.txt").readlines()
 
 heights = np.zeros((len(data), len(data[0].rstrip())), dtype="int")
 for i in range(heights.shape[0]):
@@ -30,26 +30,26 @@ visible[-1] = True
 visible[:, 0] = True
 visible[:, -1] = True
 
+#theres probably a more elegant way to do it as there can be only one visible in each row/column taking into account boundaries
 print(visible.sum())
 
+
+#feels like a hack
 def ss(arr):
     count = np.zeros_like(arr)
-    for i in range(arr.size):
-        for j in range(i,0,-1):
-            if arr[j-1] <= arr[i]:
-                count[i] +=1
-            else:
+    for i in range(count.size):
+        A = (arr[:i] < arr[i])[::-1]
+        for a in A:
+            count[i] += 1
+            if a == False:
                 break
-    count[1:] = np.where(count[1:] == 0,1,count[1:])
     return count
 
-for h in heights:
-    print(ss(h),ss(h[::-1])[::-1])
 score = np.ones_like(heights)
 for i in range(heights.shape[0]):
-    score[i] *= ss(heights[i])
-    score[i][::-1] *= ss(heights[i][::-1])
-for h in range(heights.shape[1]):
-    score[:,i] *= ss(heights[:,i])
-    score[:,i][::-1] *= ss(heights[:,i][::-1])
-print(score)
+    score[i,:] *= ss(heights[i,:])
+    score[i,:] *= ss(heights[i,:][::-1])[::-1]
+for j in range(heights.shape[1]):
+    score[:,j] *= ss(heights[:,j])
+    score[:,j] *= ss(heights[:,j][::-1])[::-1]
+print(score.max())
