@@ -30,7 +30,6 @@ visible[-1] = True
 visible[:, 0] = True
 visible[:, -1] = True
 
-#theres probably a more elegant way to do it as there can be only one visible in each row/column taking into account boundaries
 print(visible.sum())
 
 
