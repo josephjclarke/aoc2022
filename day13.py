@@ -31,10 +31,8 @@ pairs = [(eval(data[i]), eval(data[i + 1]))
 right_order = [checkpairs(*p) for p in pairs]
 print(sum([i + 1 for i, r in enumerate(right_order) if r]))
 
-packets = [
-    eval(l.rstrip())
-    for i, l in enumerate(open("input13.txt").readlines()) if (i + 1) % 3 != 0
-] + [[[2]], [[6]]]
+packets = [eval(l.rstrip())
+           for i, l in enumerate(data) if (i + 1) % 3 != 0] + [[[2]], [[6]]]
 
 sorted_packets = sorted(
     packets,
