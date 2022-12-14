@@ -39,7 +39,6 @@ def advance(c, pos, minh):
                 returning = False
                 break
         if returning:
-            #pp(c)
             return c, False
 
 
